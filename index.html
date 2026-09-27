@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Digital Product Profit Calculator">
 <meta property="og:description" content="Calculate digital product revenue, fees, profit and profit margin with a free, simple calculator.">
-<link rel="stylesheet" href="css/style.css"><script src="js/app.js" defer></script>
+<link rel="stylesheet" href="css/style.css"><script src="js/platformFees.js" defer></script><script src="js/calculator.js" defer></script><script src="js/ui.js" defer></script><script src="js/app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -83,30 +83,273 @@
 <option value="etsy">Etsy</option>
 </select>
 </div>
-<div class="fields fees-group">
-<div class="field">
-<label for="platform-fee">Platform fee</label>
-<div class="input-group suffix-group">
-<input id="platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="5" aria-label="Platform fee percentage">
-<span class="suffix" aria-hidden="true">%</span>
-</div>
-</div>
-<div class="field">
-<label for="payment-fee">Payment fee</label>
-<div class="input-group suffix-group">
-<input id="payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9" aria-label="Payment fee percentage">
-<span class="suffix" aria-hidden="true">%</span>
-</div>
-</div>
+
+<!-- Platform-specific fee containers -->
+<div id="gumroad-fees" class="platform-fees-container" style="display:none;">
 <div class="field full-width">
-<label for="fixed-fee">Fixed payment fee</label>
+<label for="gumroad-sale-type">Gumroad Sale Type</label>
+<select id="gumroad-sale-type" aria-label="Select Gumroad sale type">
+<option value="direct">Direct Sale</option>
+<option value="discover">Discover Sale</option>
+</select>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Platform Fees</span>
+<span class="fee-status" id="gumroad-status">Preset</span>
+</div>
+<div class="fields">
+<div class="field">
+<label for="gumroad-platform-fee">Platform fee</label>
+<div class="input-group suffix-group">
+<input id="gumroad-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="10" aria-label="Gumroad platform fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="gumroad-platform-fixed">Fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="fixed-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30" aria-label="Fixed payment fee in dollars">
+<input id="gumroad-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.50" aria-label="Gumroad fixed fee in dollars">
+</div>
+</div>
+<div class="field">
+<label for="gumroad-payment-fee">Payment processing</label>
+<div class="input-group suffix-group">
+<input id="gumroad-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9" aria-label="Gumroad payment processing fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="gumroad-payment-fixed">Payment fixed fee</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="gumroad-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30" aria-label="Gumroad payment fixed fee in dollars">
 </div>
 </div>
 </div>
-<small>Fees can be adjusted to match your current platform rates.</small>
+</div>
+<button type="button" class="fee-action-btn" id="gumroad-reset" aria-label="Reset Gumroad fees to default">Reset to Default</button>
+<small>Platform fees last verified: September 2026. Fees may change. Always verify current rates on Gumroad.</small>
+</div>
+
+<div id="payhip-fees" class="platform-fees-container" style="display:none;">
+<div class="field full-width">
+<label for="payhip-plan">Payhip Plan</label>
+<select id="payhip-plan" aria-label="Select Payhip plan">
+<option value="free">Free</option>
+<option value="plus">Plus</option>
+<option value="pro">Pro</option>
+</select>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Platform & Payment Fees</span>
+<span class="fee-status" id="payhip-status">Preset</span>
+</div>
+<div class="fields">
+<div class="field">
+<label for="payhip-platform-fee">Platform fee</label>
+<div class="input-group suffix-group">
+<input id="payhip-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="5" aria-label="Payhip platform fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="payhip-payment-fee">Payment processing</label>
+<div class="input-group suffix-group">
+<input id="payhip-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9" aria-label="Payhip payment processing fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="payhip-payment-fixed">Payment fixed fee</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="payhip-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30" aria-label="Payhip payment fixed fee in dollars">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="fee-action-btn" id="payhip-reset" aria-label="Reset Payhip fees to default">Reset to Default</button>
+<small>Platform fees last verified: September 2026. Payment processor rates vary by country/account.</small>
+</div>
+
+<div id="etsy-fees" class="platform-fees-container" style="display:none;">
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Transaction Fees</span>
+<span class="fee-status" id="etsy-status">Preset</span>
+</div>
+<div class="fields">
+<div class="field">
+<label for="etsy-transaction-fee">Transaction fee</label>
+<div class="input-group suffix-group">
+<input id="etsy-transaction-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="6.5" aria-label="Etsy transaction fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="etsy-listing-fee">Listing fee per sale</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="etsy-listing-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20" aria-label="Etsy listing fee in dollars">
+</div>
+</div>
+</div>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Payment Processing</span>
+</div>
+<div class="checkbox-field">
+<input id="etsy-payment-enabled" type="checkbox" checked aria-label="Enable Etsy payment processing fees">
+<label for="etsy-payment-enabled">Enable payment processing fees</label>
+</div>
+<div class="fields" id="etsy-payment-fields">
+<div class="field">
+<label for="etsy-payment-fee">Payment processing</label>
+<div class="input-group suffix-group">
+<input id="etsy-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="3" aria-label="Etsy payment processing fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="etsy-payment-fixed">Payment fixed fee</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="etsy-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20" aria-label="Etsy payment fixed fee in dollars">
+</div>
+</div>
+</div>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Optional Fees</span>
+</div>
+<div class="checkbox-field">
+<input id="etsy-offsite-ads-enabled" type="checkbox" aria-label="Enable Etsy offsite ads fees">
+<label for="etsy-offsite-ads-enabled">Offsite ads fee</label>
+</div>
+<div class="fields" id="etsy-offsite-ads-fields" style="display:none;">
+<div class="field">
+<label for="etsy-offsite-ads">Offsite ads rate</label>
+<select id="etsy-offsite-ads" aria-label="Select Etsy offsite ads rate">
+<option value="0">None</option>
+<option value="12">12%</option>
+<option value="15">15%</option>
+</select>
+</div>
+</div>
+<div class="checkbox-field">
+<input id="etsy-currency-enabled" type="checkbox" aria-label="Enable currency conversion fees">
+<label for="etsy-currency-enabled">Currency conversion fee</label>
+</div>
+<div class="fields" id="etsy-currency-fields" style="display:none;">
+<div class="field">
+<label for="etsy-currency-fee">Currency conversion fee</label>
+<div class="input-group suffix-group">
+<input id="etsy-currency-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.5" aria-label="Etsy currency conversion fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="fee-action-btn" id="etsy-reset" aria-label="Reset Etsy fees to default">Reset to Default</button>
+<small>Platform fees last verified: September 2026. Etsy fees vary by category and country.</small>
+</div>
+
+<div id="custom-fees" class="platform-fees-container" style="display:none;">
+<div class="field full-width">
+<label for="custom-platform-name">Platform name</label>
+<input id="custom-platform-name" type="text" placeholder="My Platform" aria-label="Custom platform name">
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Platform Fees</span>
+</div>
+<div class="fields">
+<div class="field">
+<label for="custom-platform-fee">Platform fee</label>
+<div class="input-group suffix-group">
+<input id="custom-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom platform fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="custom-platform-fixed">Platform fixed fee</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="custom-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom platform fixed fee in dollars">
+</div>
+</div>
+</div>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Payment Processing</span>
+</div>
+<div class="checkbox-field">
+<input id="custom-payment-enabled" type="checkbox" aria-label="Enable custom payment processing fees">
+<label for="custom-payment-enabled">Enable payment processing</label>
+</div>
+<div class="fields" id="custom-payment-fields" style="display:none;">
+<div class="field">
+<label for="custom-payment-fee">Payment processing</label>
+<div class="input-group suffix-group">
+<input id="custom-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom payment processing fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="custom-payment-fixed">Payment fixed fee</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="custom-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom payment fixed fee in dollars">
+</div>
+</div>
+</div>
+</div>
+<div class="fee-section">
+<div class="fee-header">
+<span class="fee-label">Additional Fees</span>
+</div>
+<div class="checkbox-field">
+<input id="custom-listing-enabled" type="checkbox" aria-label="Enable listing fees">
+<label for="custom-listing-enabled">Listing fee</label>
+</div>
+<div class="fields" id="custom-listing-fields" style="display:none;">
+<div class="field">
+<label for="custom-listing-fee">Listing fee per sale</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="custom-listing-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom listing fee in dollars">
+</div>
+</div>
+</div>
+<div class="checkbox-field">
+<input id="custom-other-enabled" type="checkbox" aria-label="Enable other fees">
+<label for="custom-other-enabled">Other fees</label>
+</div>
+<div class="fields" id="custom-other-fields" style="display:none;">
+<div class="field">
+<label for="custom-other-fee">Other fee (percentage)</label>
+<div class="input-group suffix-group">
+<input id="custom-other-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom other fee percentage">
+<span class="suffix" aria-hidden="true">%</span>
+</div>
+</div>
+<div class="field">
+<label for="custom-other-fixed">Other fee (fixed)</label>
+<div class="input-group prefix-group">
+<span class="prefix" aria-hidden="true">$</span>
+<input id="custom-other-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom other fixed fee in dollars">
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </fieldset>
 </form>
 </div>
@@ -127,6 +370,10 @@
 <dd aria-label="Total fees">$0.00</dd>
 </div>
 <div>
+<dt>Effective fee rate</dt>
+<dd aria-label="Effective fee rate">0%</dd>
+</div>
+<div>
 <dt>Product costs</dt>
 <dd aria-label="Product costs">$0.00</dd>
 </div>
@@ -139,6 +386,15 @@
 <dd aria-label="Profit margin">0%</dd>
 </div>
 </dl>
+<div id="fee-breakdown" class="fee-breakdown" style="display:none;">
+<button type="button" class="breakdown-toggle" aria-expanded="false" aria-controls="breakdown-details">
+<span>Fee breakdown</span>
+<span class="toggle-icon">▸</span>
+</button>
+<div id="breakdown-details" class="breakdown-details" style="display:none;">
+<dl></dl>
+</div>
+</div>
 <div class="actions">
 <button class="button primary" type="button" aria-label="Reset calculator">Reset</button>
 <button class="button secondary" type="button" aria-label="Share result">Share</button>
