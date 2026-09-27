@@ -17,8 +17,8 @@
 <header class="header" role="banner">
 <div class="wrap nav-wrap">
 <a class="brand" href="#top" aria-label="Digital Product Profit Calculator">
-<b aria-hidden="true">DP</b>
-<span>Digital Product Profit Calculator</span>
+<span class="brand-icon" aria-hidden="true">%</span>
+<span class="brand-text">Digital Product Profit Calculator</span>
 </a>
 <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Toggle navigation menu">
 <span class="sr-only">Menu</span>
@@ -35,18 +35,22 @@
 <main id="main" role="main">
 <section class="hero" id="top" role="region" aria-labelledby="hero-title">
 <div class="wrap">
-<p class="eyebrow">For creators and digital product sellers</p>
-<h1 id="hero-title">Know what your digital product really earns.</h1>
-<p class="lead">Calculate your revenue, fees, profit and profit margin in seconds.</p>
-<p class="trust"><span aria-label="Checkmark">✓</span> Free to use <span aria-hidden="true">•</span> No sign-up <span aria-hidden="true">•</span> Calculations stay in your browser</p>
-</div>
+<p class="eyebrow">For digital product sellers</p>
+<h1 id="hero-title">See exactly where your<br>money goes.</h1>
+<p class="trust-indicators">
+<span class="trust-item">✓ Free</span>
+<span class="trust-item">✓ No sign-up</span>
+<span class="trust-item">✓ 100% browser-based</span>
+</p>
+<a href="#calculator" class="button primary large">Calculate My Profit</a>
 </section>
 <section class="calc" id="calculator" role="region" aria-labelledby="calc-title">
 <div class="wrap calc-grid">
 <div class="card form-card">
-<p class="eyebrow">Start with the basics</p>
-<h2 id="calc-title">Profit calculator</h2>
-<p class="muted">Enter a few details to see how your product could perform.</p>
+<div class="calc-header">
+<p class="eyebrow">Digital Product Profit</p>
+<h2 id="calc-title">Calculate your real profit</h2>
+</div>
 <form novalidate>
 <fieldset>
 <legend>Product information</legend>
@@ -55,7 +59,7 @@
 <label for="price">Product price</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="price" type="number" inputmode="decimal" min="0" step="0.01" placeholder="10.00" aria-label="Product price in dollars">
+<input id="price" type="number" inputmode="decimal" min="0" step="0.01" placeholder="15.00" aria-label="Product price in dollars">
 </div>
 </div>
 <div class="field">
@@ -66,26 +70,26 @@
 <label for="cost">Product cost per sale</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="cost" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.00" aria-label="Product cost per sale in dollars">
+<input id="cost" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.00" aria-label="Product cost per sale in dollars">
 </div>
-<small>Include delivery, support or per-sale costs.</small>
+<small>Include delivery, support or other per-sale costs.</small>
 </div>
 </div>
 </fieldset>
 <fieldset>
-<legend>Platform fees</legend>
+<legend>Platform Fees</legend>
 <div class="field full-width">
 <label for="platform">Selling platform</label>
 <select id="platform" aria-label="Select your selling platform">
-<option value="custom">Custom</option>
 <option value="gumroad">Gumroad</option>
 <option value="payhip">Payhip</option>
 <option value="etsy">Etsy</option>
+<option value="custom">Custom</option>
 </select>
 </div>
 
 <!-- Platform-specific fee containers -->
-<div id="gumroad-fees" class="platform-fees-container" style="display:none;">
+<div id="gumroad-fees" class="platform-fees-container">
 <div class="field full-width">
 <label for="gumroad-sale-type">Gumroad Sale Type</label>
 <select id="gumroad-sale-type" aria-label="Select Gumroad sale type">
@@ -93,30 +97,37 @@
 <option value="discover">Discover Sale</option>
 </select>
 </div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Platform Fees</span>
-<span class="fee-status" id="gumroad-status">Preset</span>
+<div class="fee-summary-box">
+<div class="fee-summary-item">
+<span class="fee-summary-label">Platform fee</span>
+<span class="fee-summary-value" id="gumroad-platform-display">10% + $0.50</span>
 </div>
+<div class="fee-summary-item">
+<span class="fee-summary-label">Payment processing</span>
+<span class="fee-summary-value" id="gumroad-payment-display">2.9% + $0.30</span>
+</div>
+</div>
+<button type="button" class="text-btn edit-fees-btn" id="gumroad-edit-btn">Edit Fees</button>
+<div class="fee-editor" id="gumroad-editor" style="display:none;">
 <div class="fields">
 <div class="field">
-<label for="gumroad-platform-fee">Platform fee</label>
+<label for="gumroad-platform-fee">Platform fee %</label>
 <div class="input-group suffix-group">
-<input id="gumroad-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="10" aria-label="Gumroad platform fee percentage">
+<input id="gumroad-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="10">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
 <div class="field">
-<label for="gumroad-platform-fixed">Fixed fee</label>
+<label for="gumroad-platform-fixed">Platform fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="gumroad-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.50" aria-label="Gumroad fixed fee in dollars">
+<input id="gumroad-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.50">
 </div>
 </div>
 <div class="field">
-<label for="gumroad-payment-fee">Payment processing</label>
+<label for="gumroad-payment-fee">Payment processing %</label>
 <div class="input-group suffix-group">
-<input id="gumroad-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9" aria-label="Gumroad payment processing fee percentage">
+<input id="gumroad-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -124,12 +135,12 @@
 <label for="gumroad-payment-fixed">Payment fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="gumroad-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30" aria-label="Gumroad payment fixed fee in dollars">
+<input id="gumroad-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30">
 </div>
 </div>
 </div>
+<button type="button" class="fee-action-btn" id="gumroad-reset">Reset to Default</button>
 </div>
-<button type="button" class="fee-action-btn" id="gumroad-reset" aria-label="Reset Gumroad fees to default">Reset to Default</button>
 <small>Platform fees last verified: September 2026. Fees may change. Always verify current rates on Gumroad.</small>
 </div>
 
@@ -142,23 +153,30 @@
 <option value="pro">Pro</option>
 </select>
 </div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Platform & Payment Fees</span>
-<span class="fee-status" id="payhip-status">Preset</span>
+<div class="fee-summary-box">
+<div class="fee-summary-item">
+<span class="fee-summary-label">Platform fee</span>
+<span class="fee-summary-value" id="payhip-platform-display">5%</span>
 </div>
+<div class="fee-summary-item">
+<span class="fee-summary-label">Payment processing</span>
+<span class="fee-summary-value" id="payhip-payment-display">2.9% + $0.30</span>
+</div>
+</div>
+<button type="button" class="text-btn edit-fees-btn" id="payhip-edit-btn">Edit Fees</button>
+<div class="fee-editor" id="payhip-editor" style="display:none;">
 <div class="fields">
 <div class="field">
-<label for="payhip-platform-fee">Platform fee</label>
+<label for="payhip-platform-fee">Platform fee %</label>
 <div class="input-group suffix-group">
-<input id="payhip-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="5" aria-label="Payhip platform fee percentage">
+<input id="payhip-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="5">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
 <div class="field">
-<label for="payhip-payment-fee">Payment processing</label>
+<label for="payhip-payment-fee">Payment processing %</label>
 <div class="input-group suffix-group">
-<input id="payhip-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9" aria-label="Payhip payment processing fee percentage">
+<input id="payhip-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.9">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -166,26 +184,33 @@
 <label for="payhip-payment-fixed">Payment fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="payhip-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30" aria-label="Payhip payment fixed fee in dollars">
+<input id="payhip-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.30">
 </div>
 </div>
 </div>
+<button type="button" class="fee-action-btn" id="payhip-reset">Reset to Default</button>
 </div>
-<button type="button" class="fee-action-btn" id="payhip-reset" aria-label="Reset Payhip fees to default">Reset to Default</button>
 <small>Platform fees last verified: September 2026. Payment processor rates vary by country/account.</small>
 </div>
 
 <div id="etsy-fees" class="platform-fees-container" style="display:none;">
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Transaction Fees</span>
-<span class="fee-status" id="etsy-status">Preset</span>
+<div class="fee-summary-box">
+<div class="fee-summary-item">
+<span class="fee-summary-label">Transaction fee</span>
+<span class="fee-summary-value" id="etsy-transaction-display">6.5% + $0.20</span>
 </div>
+<div class="fee-summary-item">
+<span class="fee-summary-label">Payment processing</span>
+<span class="fee-summary-value" id="etsy-payment-display">3% + $0.20</span>
+</div>
+</div>
+<button type="button" class="text-btn edit-fees-btn" id="etsy-edit-btn">Edit Fees</button>
+<div class="fee-editor" id="etsy-editor" style="display:none;">
 <div class="fields">
 <div class="field">
-<label for="etsy-transaction-fee">Transaction fee</label>
+<label for="etsy-transaction-fee">Transaction fee %</label>
 <div class="input-group suffix-group">
-<input id="etsy-transaction-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="6.5" aria-label="Etsy transaction fee percentage">
+<input id="etsy-transaction-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="6.5">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -193,24 +218,13 @@
 <label for="etsy-listing-fee">Listing fee per sale</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="etsy-listing-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20" aria-label="Etsy listing fee in dollars">
+<input id="etsy-listing-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20">
 </div>
 </div>
-</div>
-</div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Payment Processing</span>
-</div>
-<div class="checkbox-field">
-<input id="etsy-payment-enabled" type="checkbox" checked aria-label="Enable Etsy payment processing fees">
-<label for="etsy-payment-enabled">Enable payment processing fees</label>
-</div>
-<div class="fields" id="etsy-payment-fields">
 <div class="field">
-<label for="etsy-payment-fee">Payment processing</label>
+<label for="etsy-payment-fee">Payment processing %</label>
 <div class="input-group suffix-group">
-<input id="etsy-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="3" aria-label="Etsy payment processing fee percentage">
+<input id="etsy-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="3">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -218,44 +232,12 @@
 <label for="etsy-payment-fixed">Payment fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="etsy-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20" aria-label="Etsy payment fixed fee in dollars">
+<input id="etsy-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0.20">
 </div>
 </div>
 </div>
+<button type="button" class="fee-action-btn" id="etsy-reset">Reset to Default</button>
 </div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Optional Fees</span>
-</div>
-<div class="checkbox-field">
-<input id="etsy-offsite-ads-enabled" type="checkbox" aria-label="Enable Etsy offsite ads fees">
-<label for="etsy-offsite-ads-enabled">Offsite ads fee</label>
-</div>
-<div class="fields" id="etsy-offsite-ads-fields" style="display:none;">
-<div class="field">
-<label for="etsy-offsite-ads">Offsite ads rate</label>
-<select id="etsy-offsite-ads" aria-label="Select Etsy offsite ads rate">
-<option value="0">None</option>
-<option value="12">12%</option>
-<option value="15">15%</option>
-</select>
-</div>
-</div>
-<div class="checkbox-field">
-<input id="etsy-currency-enabled" type="checkbox" aria-label="Enable currency conversion fees">
-<label for="etsy-currency-enabled">Currency conversion fee</label>
-</div>
-<div class="fields" id="etsy-currency-fields" style="display:none;">
-<div class="field">
-<label for="etsy-currency-fee">Currency conversion fee</label>
-<div class="input-group suffix-group">
-<input id="etsy-currency-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="2.5" aria-label="Etsy currency conversion fee percentage">
-<span class="suffix" aria-hidden="true">%</span>
-</div>
-</div>
-</div>
-</div>
-<button type="button" class="fee-action-btn" id="etsy-reset" aria-label="Reset Etsy fees to default">Reset to Default</button>
 <small>Platform fees last verified: September 2026. Etsy fees vary by category and country.</small>
 </div>
 
@@ -264,15 +246,22 @@
 <label for="custom-platform-name">Platform name</label>
 <input id="custom-platform-name" type="text" placeholder="My Platform" aria-label="Custom platform name">
 </div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Platform Fees</span>
+<div class="fee-summary-box">
+<div class="fee-summary-item">
+<span class="fee-summary-label">Platform fee</span>
+<span class="fee-summary-value" id="custom-platform-display">0% + $0</span>
 </div>
+<div class="fee-summary-item">
+<span class="fee-summary-label">Payment processing</span>
+<span class="fee-summary-value" id="custom-payment-display">0% + $0</span>
+</div>
+</div>
+<div class="fee-editor" style="display:block;">
 <div class="fields">
 <div class="field">
-<label for="custom-platform-fee">Platform fee</label>
+<label for="custom-platform-fee">Platform fee %</label>
 <div class="input-group suffix-group">
-<input id="custom-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom platform fee percentage">
+<input id="custom-platform-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -280,24 +269,13 @@
 <label for="custom-platform-fixed">Platform fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="custom-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom platform fixed fee in dollars">
+<input id="custom-platform-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0">
 </div>
 </div>
-</div>
-</div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Payment Processing</span>
-</div>
-<div class="checkbox-field">
-<input id="custom-payment-enabled" type="checkbox" aria-label="Enable custom payment processing fees">
-<label for="custom-payment-enabled">Enable payment processing</label>
-</div>
-<div class="fields" id="custom-payment-fields" style="display:none;">
 <div class="field">
-<label for="custom-payment-fee">Payment processing</label>
+<label for="custom-payment-fee">Payment processing %</label>
 <div class="input-group suffix-group">
-<input id="custom-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom payment processing fee percentage">
+<input id="custom-payment-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0">
 <span class="suffix" aria-hidden="true">%</span>
 </div>
 </div>
@@ -305,45 +283,7 @@
 <label for="custom-payment-fixed">Payment fixed fee</label>
 <div class="input-group prefix-group">
 <span class="prefix" aria-hidden="true">$</span>
-<input id="custom-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom payment fixed fee in dollars">
-</div>
-</div>
-</div>
-</div>
-<div class="fee-section">
-<div class="fee-header">
-<span class="fee-label">Additional Fees</span>
-</div>
-<div class="checkbox-field">
-<input id="custom-listing-enabled" type="checkbox" aria-label="Enable listing fees">
-<label for="custom-listing-enabled">Listing fee</label>
-</div>
-<div class="fields" id="custom-listing-fields" style="display:none;">
-<div class="field">
-<label for="custom-listing-fee">Listing fee per sale</label>
-<div class="input-group prefix-group">
-<span class="prefix" aria-hidden="true">$</span>
-<input id="custom-listing-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom listing fee in dollars">
-</div>
-</div>
-</div>
-<div class="checkbox-field">
-<input id="custom-other-enabled" type="checkbox" aria-label="Enable other fees">
-<label for="custom-other-enabled">Other fees</label>
-</div>
-<div class="fields" id="custom-other-fields" style="display:none;">
-<div class="field">
-<label for="custom-other-fee">Other fee (percentage)</label>
-<div class="input-group suffix-group">
-<input id="custom-other-fee" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom other fee percentage">
-<span class="suffix" aria-hidden="true">%</span>
-</div>
-</div>
-<div class="field">
-<label for="custom-other-fixed">Other fee (fixed)</label>
-<div class="input-group prefix-group">
-<span class="prefix" aria-hidden="true">$</span>
-<input id="custom-other-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0" aria-label="Custom other fixed fee in dollars">
+<input id="custom-payment-fixed" type="number" inputmode="decimal" min="0" step="0.01" placeholder="0">
 </div>
 </div>
 </div>
@@ -354,38 +294,34 @@
 </form>
 </div>
 <aside class="results" role="region" aria-labelledby="results-title" aria-live="polite" aria-atomic="false">
-<p class="eyebrow">Your estimate</p>
-<h2 id="results-title">Estimated results</h2>
-<div class="net">
-<span>Net profit</span>
-<strong aria-label="Net profit">$0.00</strong>
+<div class="results-header">
+<p class="eyebrow">Your real numbers</p>
+<h2 id="results-title">Profit breakdown</h2>
 </div>
-<dl class="results-list">
-<div>
-<dt>Gross revenue</dt>
-<dd aria-label="Gross revenue">$0.00</dd>
+<div class="results-breakdown">
+<div class="breakdown-row">
+<span class="breakdown-label">Gross revenue</span>
+<span class="breakdown-value" id="gross-revenue">$0.00</span>
 </div>
-<div>
-<dt>Total fees</dt>
-<dd aria-label="Total fees">$0.00</dd>
+<div class="breakdown-row">
+<span class="breakdown-label">Platform fees</span>
+<span class="breakdown-value negative" id="platform-fees">−$0.00</span>
 </div>
-<div>
-<dt>Effective fee rate</dt>
-<dd aria-label="Effective fee rate">0%</dd>
+<div class="breakdown-row">
+<span class="breakdown-label">Payment fees</span>
+<span class="breakdown-value negative" id="payment-fees">−$0.00</span>
 </div>
-<div>
-<dt>Product costs</dt>
-<dd aria-label="Product costs">$0.00</dd>
+<div class="breakdown-row">
+<span class="breakdown-label">Product costs</span>
+<span class="breakdown-value negative" id="product-costs">−$0.00</span>
 </div>
-<div>
-<dt>Profit per sale</dt>
-<dd aria-label="Profit per sale">$0.00</dd>
 </div>
-<div>
-<dt>Profit margin</dt>
-<dd aria-label="Profit margin">0%</dd>
+<div class="results-divider"></div>
+<div class="results-hero">
+<p class="results-hero-label">Real Profit</p>
+<p class="results-hero-value" id="real-profit">$0.00</p>
+<p class="results-hero-metric" id="profit-margin">0% margin</p>
 </div>
-</dl>
 <div id="fee-breakdown" class="fee-breakdown" style="display:none;">
 <button type="button" class="breakdown-toggle" aria-expanded="false" aria-controls="breakdown-details">
 <span>Fee breakdown</span>
@@ -396,62 +332,34 @@
 </div>
 </div>
 <div class="actions">
-<button class="button primary" type="button" aria-label="Reset calculator">Reset</button>
-<button class="button secondary" type="button" aria-label="Share result">Share</button>
+<button class="button primary full-width" type="button" aria-label="Reset calculator">Reset</button>
+<button class="button secondary full-width" type="button" aria-label="Share result">Share</button>
 </div>
-<p class="note">Your results will update here as you enter your numbers.</p>
+<p class="note">Results update live as you enter your numbers.</p>
 </aside>
-</div>
-</section>
-<section class="section tinted" role="region" aria-labelledby="features-title">
-<div class="wrap">
-<div class="center">
-<p class="eyebrow">More ways to plan</p>
-<h2 id="features-title">Build a more profitable product business</h2>
-</div>
-<div class="cards">
-<article class="card-item">
-<em aria-hidden="true">01</em>
-<h3>Target profit</h3>
-<p>Find out how many sales you need to reach your target profit.</p>
-<button class="text-btn" type="button" aria-label="Calculate target profit">Calculate target <span aria-hidden="true">→</span></button>
-</article>
-<article class="card-item">
-<em aria-hidden="true">02</em>
-<h3>Pricing calculator</h3>
-<p>Estimate the price you need to reach your desired profit per sale.</p>
-<button class="text-btn" type="button" aria-label="Calculate optimal pricing">Calculate price <span aria-hidden="true">→</span></button>
-</article>
-<article class="card-item">
-<em aria-hidden="true">03</em>
-<h3>Scenario comparison</h3>
-<p>Compare different prices and sales scenarios side by side.</p>
-<button class="text-btn" type="button" aria-label="Compare different scenarios">Compare scenarios <span aria-hidden="true">→</span></button>
-</article>
-</div>
 </div>
 </section>
 <section class="section" id="how" role="region" aria-labelledby="how-title">
 <div class="wrap">
 <div class="center">
-<p class="eyebrow">A simpler way to plan</p>
-<h2 id="how-title">How it works</h2>
+<p class="eyebrow">How it works</p>
+<h2 id="how-title">Three simple steps</h2>
 </div>
 <ol class="steps">
 <li>
 <span class="step-num" aria-hidden="true">1</span>
 <h3>Enter your numbers</h3>
-<p>Add your product price, sales and costs.</p>
+<p>Product price, number of sales, and per-sale costs.</p>
 </li>
 <li>
 <span class="step-num" aria-hidden="true">2</span>
-<h3>Choose your fees</h3>
-<p>Select your platform or enter custom fees.</p>
+<h3>Choose your platform</h3>
+<p>Select your selling platform or enter custom fees.</p>
 </li>
 <li>
 <span class="step-num" aria-hidden="true">3</span>
-<h3>See your profit</h3>
-<p>Instantly understand your estimated revenue and profit.</p>
+<h3>See your real profit</h3>
+<p>Understand exactly what you keep after all costs.</p>
 </li>
 </ol>
 </div>
@@ -461,41 +369,40 @@
 <span class="check-icon" aria-hidden="true">✓</span>
 <div>
 <h2 id="privacy-title">Your calculations stay in your browser.</h2>
-<p>This calculator is designed to perform calculations locally on your device. No account is required.</p>
+<p>No data is sent anywhere. No account required. 100% local calculation.</p>
 </div>
 </div>
 </section>
 <section class="section faq" id="faq" role="region" aria-labelledby="faq-title">
 <div class="wrap faq-grid">
 <div>
-<p class="eyebrow">Questions, answered</p>
+<p class="eyebrow">Questions answered</p>
 <h2 id="faq-title">Frequently asked questions</h2>
-<p class="muted">Clear context for planning your next digital product.</p>
 </div>
 <div class="faq-list">
 <details>
-<summary>What is a digital product profit calculator?</summary>
-<p>A planning tool that helps estimate revenue, costs, fees and profit for products delivered digitally.</p>
+<summary>What does this calculator include?</summary>
+<p>It calculates your real profit after platform fees, payment processing fees, and product costs. See exactly what you keep.</p>
 </details>
 <details>
-<summary>What fees should I include?</summary>
-<p>Include platform, payment processing and fixed transaction fees.</p>
+<summary>How are platform fees calculated?</summary>
+<p>Each platform charges a percentage of revenue plus fixed fees per sale. We calculate both to show your total platform cost.</p>
 </details>
 <details>
-<summary>Can I use this calculator for Gumroad?</summary>
-<p>Yes. Select Gumroad, then review the editable fee fields to match your rates.</p>
+<summary>Can I edit the fees?</summary>
+<p>Yes. Click "Edit Fees" to adjust any platform's fee structure or create a custom configuration.</p>
 </details>
 <details>
-<summary>Can I use this calculator for Payhip?</summary>
-<p>Yes. Select Payhip and adjust the editable fee fields when needed.</p>
+<summary>Does this calculator save my data?</summary>
+<p>No. All calculations are done locally in your browser. We don't store, track, or collect any of your information.</p>
 </details>
 <details>
-<summary>Can I use this calculator for Etsy?</summary>
-<p>Yes. Select Etsy, remembering that rates and fees may vary by category.</p>
+<summary>Which platforms are supported?</summary>
+<p>We include presets for Gumroad, Payhip, and Etsy. You can also create a completely custom configuration.</p>
 </details>
 <details>
-<summary>Does the calculator store my data?</summary>
-<p>This foundation is designed to run locally in your browser. No data is stored or sent anywhere.</p>
+<summary>Is this calculator free?</summary>
+<p>Yes, completely free. No sign-up required. Use it as many times as you want.</p>
 </details>
 </div>
 </div>
@@ -505,8 +412,8 @@
 <div class="wrap foot">
 <div class="footer-brand">
 <a class="brand" href="#top">
-<b aria-hidden="true">DP</b>
-<span>Digital Product Profit Calculator</span>
+<span class="brand-icon" aria-hidden="true">%</span>
+<span class="brand-text">Digital Product Profit Calculator</span>
 </a>
 <p>A simple calculator for digital product sellers.</p>
 </div>
@@ -515,7 +422,6 @@
 <a href="#how">How It Works</a>
 <a href="#faq">FAQ</a>
 <a href="#privacy">Privacy</a>
-<a href="#toolkit">Seller Toolkit</a>
 </nav>
 </div>
 <div class="wrap copyright">© 2026 Digital Product Profit Calculator</div>
